@@ -181,14 +181,31 @@ function findLast(list){
 */
 
 //5
-function reverse(head, prev){
-  if(head.next === null){
-    head.next = prev;
-    return head;
-  }
-  const result = reverse(head.next, head);
-  head.next = prev;
-  return result;
+// function reverse(head, prev){
+//   if(head.next === null){
+//     head.next = prev;
+//     return head;
+//   }
+//   const result = reverse(head.next, head);
+//   head.next = prev;
+//   return result;
+// }
+
+function reverse(list){
+    if(!list.head){
+        return null;
+    }
+
+    let prev = null;
+    let curr = list.head;
+    while(curr !== null){
+        temp = curr.next;
+        curr.next = prev;
+        prev = curr;
+        curr = temp;
+    }
+    list.head = prev;
+    return list;
 }
 
 //6

@@ -14,7 +14,7 @@ class DoubleLinkedList {
   }
 
   insertFirst(item){
-    this.head = new _Node(item, this.head, this.tail);
+    this.head = new _Node(item, this.head);
     // this.tail === null ? this.tail = this.head : this.tail = this.tail.next;
   }
 
