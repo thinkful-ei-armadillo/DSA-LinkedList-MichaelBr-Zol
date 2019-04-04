@@ -14,8 +14,8 @@ class DoubleLinkedList {
   }
 
   insertFirst(item){
-    this.head = new _Node(item, this.head);
-    this.tail === null ? this.tail = this.head : this.tail = this.tail.next;
+    this.head = new _Node(item, this.head, this.tail);
+    // this.tail === null ? this.tail = this.head : this.tail = this.tail.next;
   }
 
   insertLast(item){
@@ -27,7 +27,7 @@ class DoubleLinkedList {
       while(tempNode.next !== null){
         tempNode = tempNode.next;
       }
-      const newNode = new _Node(item, null);
+      const newNode = new _Node(item, null, tempNode);
       tempNode.next = newNode;
       this.tail = newNode;
     }
@@ -154,13 +154,13 @@ function reverse(list){
 
     tempNode.next = prevPrev;
     tempNode.prev = prevNext;
-
-    let prevHead = list.head;
-    let prevTail = list.tail;
-
-    list.head = prevTail;
-    list.tail = prevHead;
   }
+ 
+  let prevHead = list.head;
+  let prevTail = list.tail;
+
+  list.head = prevTail;
+  list.tail = prevHead;
   return list;
 }
 
