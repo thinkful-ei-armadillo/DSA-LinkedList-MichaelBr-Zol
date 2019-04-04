@@ -213,7 +213,18 @@ function middle(list){
 
 //8
 function cycle(list){
-  
+  let currNode = list.head;
+
+  while(true){
+    currNode = currNode.next;
+    if(currNode === null){
+      return 'Not a cycle';
+    }
+    if(currNode.value === list.head.value){
+      break;
+    }
+  }
+  return 'Cycle';
 }
 
 function main(){
@@ -231,8 +242,7 @@ function main(){
   SLL.insertAt('Kat', 3);
   SLL.remove('Tauhida');
 
-  console.log(display(SLL));
-  console.log(middle(SLL));
+  console.log(cycle(SLL));
 }
 
 main();

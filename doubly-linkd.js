@@ -143,26 +143,38 @@ function reverse(list){
     return null;
   }
 
-  let tempNode = this.head;
-  let currNode = this.head;
+  let tempNode = list.head;
+  let currNode = list.head;
   while(currNode !== null){
     let prevNext = currNode.next;
     let prevPrev = currNode.prev;
 
     tempNode = currNode;
-    currNode - currNode.next;
+    currNode = currNode.next;
 
     tempNode.next = prevPrev;
     tempNode.prev = prevNext;
+
+    let prevHead = list.head;
+    let prevTail = list.tail;
+
+    list.head = prevTail;
+    list.tail = prevHead;
   }
-
-  let prevHead = list.head;
-  let prevTail = list.tail;
-
-  list.head = prevTail;
-  list.tail = prevHead;
-
   return list;
+}
+
+function display(list){
+  if(!list.head){
+    return null;
+  }
+  let currNode = list.head;
+  let listArr = [];
+  while(currNode !== null){
+    listArr.push(currNode.value);
+    currNode = currNode.next;
+  }
+  return listArr;
 }
 
 function mainDLL(){
@@ -175,4 +187,13 @@ function mainDLL(){
   DLL.insertLast('Sagittaron');
   DLL.insertLast('Tauron');
   DLL.remove('Picon');
+  reverse(DLL);
+
+  console.log(DLL.find('Aquaria'));
+  console.log(DLL.find('Caprica'));
+  console.log(DLL.find('Gemenon'));
+  console.log(DLL.find('Sagittaron'));
+  console.log(DLL.find('Tauron'));
 }
+
+mainDLL();
