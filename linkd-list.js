@@ -69,24 +69,53 @@ class LinkedList {
         return currNode;
     }
 
-    insertBefore(item, nextItem){
+    insertBefore(item, target){
         if(!this.head){
-            return null;
-        }
-
-        if (this.head.value === nextItem){
             this.insertFirst(item);
-        } 
+        }
 
         let tempNode = this.head;
-        let nextNode = this.find(nextItem);
-        while(tempNode.next !== nextNode){
-            tempNode = tempNode.next
+        let prevNode = this.head;
+        while(tempNode !== null && tempNode.value !== target){
+          prevNode = tempNode;
+          tempNode = tempNode.next;
         }
+        if(tempNode === null){
+          console.log('Item not found');
+          return;
+        }
+        prevNode.next = new _Node(item, prevNode.next)
+    }
 
-        
-        
-        
+    insertAfter(item, target){
+      if(!this.head){
+        this.insertFirst(item);
+      }
+
+      let tempNode = this.head;
+      while(tempNode.next !== null && tempNode.value !== target){
+        tempNode = tempNode.next;
+      }
+      if(tempNode === null){
+        console.log('Item not found');
+        return;
+      }
+      let newNode = new _Node(item, tempNode.next);
+      tempNode.next = newNode;
+    }
+
+    insertAt(item, pos){
+      let currPos = 0;
+      let tempNode = this.head;
+      while(currPos < pos){
+        if(tempNode.next === null){
+          console.log('Item not found');
+          return;
+        }
+        currPos++;
+        tempNode = tempNode.next;
+      }
+      tempNode.next = new _Node(item, tempNode.next);
     }
 }
 
@@ -99,6 +128,12 @@ function main(){
 
     SLL.insertLast('Tauhida');
     SLL.remove('squirrel');
+    SLL.insertBefore('Athena', 'Boomer');
+    SLL.insertAfter('Hotdog', 'Helo');
+    SLL.insertAt('Kat', 3);
+    SLL.remove('Tauhida');
+
+    console.log(SLL);
 }
 
 main();
