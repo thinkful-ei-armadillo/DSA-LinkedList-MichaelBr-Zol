@@ -76,11 +76,16 @@ class LinkedList {
 
         if (this.head.value === nextItem){
             this.insertFirst(item);
+        } 
+
+        let tempNode = this.head;
+        let nextNode = this.find(nextItem);
+        while(tempNode.next !== nextNode){
+            tempNode = tempNode.next
         }
 
-
-        // let currNode = this.find(nextItem);
-        // let previousNode = this.head;
+        
+        
         
     }
 }
