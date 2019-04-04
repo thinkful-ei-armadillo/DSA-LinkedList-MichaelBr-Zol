@@ -5,7 +5,7 @@ class _Node {
     }
 }
 
-
+// 1 & 2
 class LinkedList {
     constructor(){
         this.head = null;
@@ -105,35 +105,134 @@ class LinkedList {
     }
 
     insertAt(item, pos){
-      let currPos = 0;
       let tempNode = this.head;
-      while(currPos < pos){
-        if(tempNode.next === null){
-          console.log('Item not found');
-          return;
-        }
-        currPos++;
-        tempNode = tempNode.next;
+      let currNode = this.head;
+      for(let i = 0; i < pos - 1; i++){
+        tempNode = currNode;
+        currNode = currNode.next;
       }
-      tempNode.next = new _Node(item, tempNode.next);
+      if(currNode === null){
+        console.log('Item not found');
+        return;
+      }
+      tempNode.next = new _Node(item, currNode);
     }
 }
 
+// 3
+function display(list){
+  if(!list.head){
+    return null;
+  }
+  let currNode = list.head;
+  let listArr = [];
+  while(currNode !== null){
+    listArr.push(currNode.value);
+    currNode = currNode.next;
+  }
+  return listArr;
+}
+
+function size(list){
+  return display(list).length;
+}
+
+function isEmpty(list){
+  if(display(list).length === 0){
+    return true;
+  }
+  return false;
+}
+
+function findPrevious(list, target){
+  if(!list.head){
+    return null;
+  }
+  if(list.head.value === target){
+    return `No previous items, '${target}' was the first item.`;
+  }
+
+  let tempNode = list.head;
+  let currNode = list.head;
+  while(currNode !== null && currNode.value !== target){
+    tempNode = currNode;
+    currNode = currNode.next;
+  }
+  if(currNode === null){
+    console.log('Item not found');
+    return;
+  }
+  return tempNode.value;
+}
+
+function findLast(list){
+  let arr = display(list);
+  let idx = display(list).length - 1;
+  return arr[idx];
+}
+
+//4
+/*
+  While there are items in the list, the function loops through each item in the list checking
+  if it is the same as the next item in the list. If they are the same, the second of the pair
+  is skipped by the loop, and the loop continues. If they are not the same, the loop continues
+
+  The time complexity of this is O(n^2) because of the nested while loops
+*/
+
+//5
+function reverse(head, prev){
+  if(head.next === null){
+    head.next = prev;
+    return head;
+  }
+  const result = reverse(head.next, head);
+  head.next = prev;
+  return result;
+}
+
+//6
+function thirdToLast(list){
+  let currNode = list.head;
+  while(currNode.next.next.next !== null){
+    currNode = currNode.next;
+  }
+  return currNode.value;
+}
+
+//7
+function middle(list){
+  const middleNode = Math.floor(size(list) / 2);
+  if(size(list) % 2 !== 0){
+    return display(list)[middleNode];
+  }
+  else{
+    return `${display(list)[middleNode - 1]}\n${display(list)[middleNode]}`;
+  }
+}
+
+//8
+function cycle(list){
+  
+}
+
 function main(){
-    const arr = ['Apollo', 'Boomer', 'Helo', 'Husker', 'Starbuck'];
-    const SLL = new LinkedList();
-    arr.forEach(item => {
-        SLL.insertLast(item)
-    })
+  const SLL = new LinkedList();  
+  
+  SLL.insertFirst('Apollo');
+  SLL.insertLast('Boomer');
+  SLL.insertLast('Helo');
+  SLL.insertLast('Husker');
+  SLL.insertLast('Starbuck');
+  SLL.insertLast('Tauhida');
+  // SLL.remove('squirrel'); /* commented out to remove console message */
+  SLL.insertBefore('Athena', 'Boomer');
+  SLL.insertAfter('Hotdog', 'Helo');
+  SLL.insertAt('Kat', 3);
+  SLL.remove('Tauhida');
 
-    SLL.insertLast('Tauhida');
-    SLL.remove('squirrel');
-    SLL.insertBefore('Athena', 'Boomer');
-    SLL.insertAfter('Hotdog', 'Helo');
-    SLL.insertAt('Kat', 3);
-    SLL.remove('Tauhida');
-
-    console.log(SLL);
+  console.log(display(SLL));
+  console.log(middle(SLL));
 }
 
 main();
